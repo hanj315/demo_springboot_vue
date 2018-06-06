@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microfeeling.demo.mapper.ProfileMapper">
+  <resultMap id="BaseResultMap" type="com.microfeeling.demo.entity.ProfileEntity">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="FULLNAME" jdbcType="VARCHAR" property="fullname" />
+    <result column="AVATAR_PATH" jdbcType="VARCHAR" property="avatarPath" />
+    <result column="GENDER" jdbcType="CHAR" property="gender" />
+    <result column="NATIONALITY" jdbcType="VARCHAR" property="nationality" />
+    <result column="POLITICAL_STATUS" jdbcType="VARCHAR" property="politicalStatus" />
+    <result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+    <result column="ID_NO" jdbcType="VARCHAR" property="idNo" />
+    <result column="RESIDENCE_ADDRESS" jdbcType="VARCHAR" property="residenceAddress" />
+    <result column="PERMANENT_ADDRESS" jdbcType="VARCHAR" property="permanentAddress" />
+    <result column="UNIVERSITY" jdbcType="VARCHAR" property="university" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+    <result column="WEIXIN" jdbcType="VARCHAR" property="weixin" />
+    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
+    <result column="FAX" jdbcType="VARCHAR" property="fax" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="CREATED_AT" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="CREATED_BY" jdbcType="INTEGER" property="createdBy" />
+    <result column="UPDATED_AT" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="UPDATED_BY" jdbcType="INTEGER" property="updatedBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, FULLNAME, AVATAR_PATH, GENDER, NATIONALITY, POLITICAL_STATUS, BIRTHDAY, ID_NO, 
+    RESIDENCE_ADDRESS, PERMANENT_ADDRESS, UNIVERSITY, PHONE, MOBILE, EMAIL, QQ, WEIXIN, 
+    POSTCODE, FAX, REMARKS, CREATED_AT, CREATED_BY, UPDATED_AT, UPDATED_BY
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM PROFILE
+    WHERE ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insert" parameterType="com.microfeeling.demo.entity.ProfileEntity" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO PROFILE (FULLNAME, AVATAR_PATH,
+      GENDER, NATIONALITY, POLITICAL_STATUS, 
+      BIRTHDAY, ID_NO, RESIDENCE_ADDRESS, 
+      PERMANENT_ADDRESS, UNIVERSITY, PHONE, 
+      MOBILE, EMAIL, QQ, 
+      WEIXIN, POSTCODE, FAX, 
+      REMARKS, CREATED_AT, CREATED_BY, 
+      UPDATED_AT, UPDATED_BY)
+    VALUES (#{fullname,jdbcType=VARCHAR}, #{avatarPath,jdbcType=VARCHAR},
+      #{gender,jdbcType=CHAR}, #{nationality,jdbcType=VARCHAR}, #{politicalStatus,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=DATE}, #{idNo,jdbcType=VARCHAR}, #{residenceAddress,jdbcType=VARCHAR}, 
+      #{permanentAddress,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{weixin,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=INTEGER}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.microfeeling.demo.entity.ProfileEntity">
+    UPDATE PROFILE
+    SET FULLNAME = #{fullname,jdbcType=VARCHAR},
+      AVATAR_PATH = #{avatarPath,jdbcType=VARCHAR},
+      GENDER = #{gender,jdbcType=CHAR},
+      NATIONALITY = #{nationality,jdbcType=VARCHAR},
+      POLITICAL_STATUS = #{politicalStatus,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      ID_NO = #{idNo,jdbcType=VARCHAR},
+      RESIDENCE_ADDRESS = #{residenceAddress,jdbcType=VARCHAR},
+      PERMANENT_ADDRESS = #{permanentAddress,jdbcType=VARCHAR},
+      UNIVERSITY = #{university,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      WEIXIN = #{weixin,jdbcType=VARCHAR},
+      POSTCODE = #{postcode,jdbcType=VARCHAR},
+      FAX = #{fax,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
+      CREATED_BY = #{createdBy,jdbcType=INTEGER},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
+    WHERE ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

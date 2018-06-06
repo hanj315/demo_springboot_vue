@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microfeeling.demo.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.microfeeling.demo.entity.UserEntity">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="PROFILE_ID" jdbcType="INTEGER" property="profileId" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="IS_DELETED" jdbcType="BIT" property="isDeleted" />
+    <result column="CREATED_AT" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="CREATED_BY" jdbcType="INTEGER" property="createdBy" />
+    <result column="UPDATED_AT" jdbcType="TIMESTAMP" property="updatedAt" />
+    <result column="UPDATED_BY" jdbcType="INTEGER" property="updatedBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, USERNAME, PASSWORD, PROFILE_ID, STATUS, IS_DELETED, CREATED_AT, CREATED_BY, UPDATED_AT, 
+    UPDATED_BY
+  </sql>
+  <sql id="Base_Column_List_Exclude_Password">
+    ID, USERNAME, PROFILE_ID, STATUS, IS_DELETED, CREATED_AT, CREATED_BY, UPDATED_AT,
+    UPDATED_BY
+  </sql>
+  <sql id="Alias_Column_List_Exclude_Password">
+    ${alias}.ID, ${alias}.USERNAME, ${alias}.PROFILE_ID, ${alias}.STATUS, ${alias}.IS_DELETED, ${alias}.CREATED_AT, ${alias}.CREATED_BY, ${alias}.UPDATED_AT,
+    ${alias}.UPDATED_BY
+  </sql>
+
+  <select id="search" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Alias_Column_List_Exclude_Password"><property name="alias" value="t_user"/></include>,
+    t_profile.FULLNAME "profile.fullname"
+    FROM USER t_user
+    LEFT JOIN PROFILE t_profile ON t_user.PROFILE_ID = t_profile.ID
+    <where>
+      t_user.IS_DELETED = 0
+      <if test="keyword != null and keyword != ''">
+        AND (
+          t_user.USERNAME LIKE "%"#{keyword}"%"
+          OR t_profile.FULLNAME LIKE "%"#{keyword}"%"
+        )
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM USER
+    WHERE IS_DELETED = 0  AND ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM USER
+    WHERE IS_DELETED = 0  AND USERNAME = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.microfeeling.demo.entity.UserEntity" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO USER (USERNAME, PASSWORD,
+      PROFILE_ID, STATUS, IS_DELETED, 
+      CREATED_AT, CREATED_BY, UPDATED_AT, 
+      UPDATED_BY)
+    VALUES (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{profileId,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, #{isDeleted,jdbcType=BIT}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=INTEGER}, #{updatedAt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=INTEGER})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.microfeeling.demo.entity.UserEntity">
+    UPDATE USER
+    SET
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
+    WHERE IS_DELETED = 0  AND ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updatePasswordByPrimaryKey" parameterType="com.microfeeling.demo.entity.UserEntity">
+    UPDATE USER
+    SET
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
+    WHERE IS_DELETED = 0  AND ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateStatusByPrimaryKey" parameterType="com.microfeeling.demo.entity.UserEntity">
+    UPDATE USER
+    SET
+      STATUS = #{status,jdbcType=CHAR},
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
+    WHERE IS_DELETED = 0  AND ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.microfeeling.demo.entity.UserEntity">
+    UPDATE USER
+    SET
+      IS_DELETED = 1,
+      UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
+    WHERE ID = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

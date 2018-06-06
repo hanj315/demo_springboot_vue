@@ -1,0 +1,41 @@
+DROP TABLE IF EXISTS USER;
+CREATE TABLE USER (
+  ID                INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  USERNAME          VARCHAR(50) NOT NULL          COMMENT '账号',
+  PASSWORD          VARCHAR(60) NOT NULL          COMMENT '密码',
+  PROFILE_ID        INT UNSIGNED DEFAULT 0        COMMENT '简介id',
+  STATUS            CHAR(1) DEFAULT ''            COMMENT '状态',
+  IS_DELETED        TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否删除（0：不是，1：是）',
+  CREATED_AT        DATETIME NOT NULL             COMMENT '创建时间',
+  CREATED_BY        INT UNSIGNED NOT NULL         COMMENT '创建者',
+  UPDATED_AT        DATETIME                      COMMENT '修改时间',
+  UPDATED_BY        INT UNSIGNED                  COMMENT '修改者',
+  UNIQUE KEY `UNIQUE_USERNAME` (`USERNAME`)
+) ENGINE = INNODB DEFAULT CHARSET=UTF8 COMMENT='用户';
+
+DROP TABLE IF EXISTS PROFILE;
+CREATE TABLE PROFILE (
+  ID                INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  FULLNAME          VARCHAR(50) DEFAULT ''        COMMENT '姓名',
+  AVATAR_PATH       VARCHAR(255) DEFAULT ''       COMMENT '头像',
+  GENDER            CHAR(1) NOT NULL DEFAULT 0    COMMENT '性别（0：未知，1：男，2：女）',
+  NATIONALITY       VARCHAR(20) DEFAULT ''        COMMENT '民族',
+  POLITICAL_STATUS  VARCHAR(20) DEFAULT ''        COMMENT '政治面貌',
+  BIRTHDAY          DATE                          COMMENT '出生日期',
+  ID_NO             VARCHAR(20) DEFAULT ''        COMMENT '身份证号',
+  RESIDENCE_ADDRESS VARCHAR(100) DEFAULT ''       COMMENT '户籍地址',
+  PERMANENT_ADDRESS VARCHAR(100) DEFAULT ''       COMMENT '常住地址',
+  UNIVERSITY        VARCHAR(100) DEFAULT ''       COMMENT '毕业院校',
+  PHONE             VARCHAR(20) DEFAULT ''        COMMENT '固定电话',
+  MOBILE            VARCHAR(20) DEFAULT ''        COMMENT '手机号',
+  EMAIL             VARCHAR(50) DEFAULT ''        COMMENT '电子邮件',
+  QQ                VARCHAR(20) DEFAULT ''        COMMENT 'QQ',
+  WEIXIN            VARCHAR(50) DEFAULT ''        COMMENT '微信',
+  POSTCODE          VARCHAR(10) DEFAULT ''        COMMENT '邮编',
+  FAX               VARCHAR(20) DEFAULT ''        COMMENT '传真',
+  REMARKS           VARCHAR(255) DEFAULT ''       COMMENT '备注',
+  CREATED_AT        DATETIME NOT NULL             COMMENT '创建时间',
+  CREATED_BY        INT UNSIGNED NOT NULL         COMMENT '创建者',
+  UPDATED_AT        DATETIME                      COMMENT '修改时间',
+  UPDATED_BY        INT UNSIGNED                  COMMENT '修改者'
+) ENGINE = INNODB DEFAULT CHARSET=UTF8 COMMENT='用户简介';
