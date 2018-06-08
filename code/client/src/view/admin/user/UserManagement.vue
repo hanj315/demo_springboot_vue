@@ -64,7 +64,7 @@
     </div>
     <!-- dialog -->
     <!-- 用户新建 dialog -->
-    <el-dialog title="用户编辑" :visible.sync="dialogUserAddVisible" @close="doCloseUserAdd">
+    <el-dialog title="用户新建" :visible.sync="dialogUserAddVisible" @close="doCloseUserAdd">
       <el-form :model="form" size="small" label-width="100px" @submit.native.prevent>
         <el-form-item label="用户名">
           <el-input v-model="form.username" auto-complete="off" placeholder="用户名"></el-input>
@@ -173,7 +173,7 @@
           password: '',
           profile: {
             fullname: '',
-            gender: 0,
+            gender: '0',
             idNo: '',
             mobile: ''
           }
@@ -202,12 +202,13 @@
         this.pagination.pageNumber = val;
         this.doSearch();
       },
+      // 默认用户表单数据
       defaultUserForm() {
         this.form.id = null;
         this.form.username = '';
         this.form.password = '';
         this.form.profile.fullname = '';
-        this.form.profile.gender = 0;
+        this.form.profile.gender = '0';
         this.form.profile.idNo = '';
         this.form.profile.mobile = '';
       },
@@ -301,7 +302,7 @@
         return this.convertGender(row.profile.gender);
       },
       convertGender(val) {
-        return val == 1 ? '男' : (val == 2 ? '女' : '未知');
+        return val == '1' ? '男' : (val == '2' ? '女' : '未知');
       }
     }
   }
