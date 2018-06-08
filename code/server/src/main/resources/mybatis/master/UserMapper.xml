@@ -29,7 +29,10 @@
   <select id="search" resultMap="BaseResultMap">
     SELECT
     <include refid="Alias_Column_List_Exclude_Password"><property name="alias" value="t_user"/></include>,
-    t_profile.FULLNAME "profile.fullname"
+    t_profile.FULLNAME "profile.fullname",
+    t_profile.ID_NO "profile.idNo",
+    t_profile.GENDER "profile.gender",
+    t_profile.MOBILE "profile.mobile"
     FROM USER t_user
     LEFT JOIN PROFILE t_profile ON t_user.PROFILE_ID = t_profile.ID
     <where>

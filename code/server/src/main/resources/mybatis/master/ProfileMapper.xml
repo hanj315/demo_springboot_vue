@@ -78,8 +78,6 @@
       POSTCODE = #{postcode,jdbcType=VARCHAR},
       FAX = #{fax,jdbcType=VARCHAR},
       REMARKS = #{remarks,jdbcType=VARCHAR},
-      CREATED_AT = #{createdAt,jdbcType=TIMESTAMP},
-      CREATED_BY = #{createdBy,jdbcType=INTEGER},
       UPDATED_AT = #{updatedAt,jdbcType=TIMESTAMP},
       UPDATED_BY = #{updatedBy,jdbcType=INTEGER}
     WHERE ID = #{id,jdbcType=INTEGER}
